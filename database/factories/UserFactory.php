@@ -26,6 +26,7 @@ class UserFactory extends Factory
 			'remember_token' => Str::random(10),
 			'age' => fake()->numberBetween(10, 60),
 			'gender' => fake()->randomElement(['male', 'female']),
+			'is_admin' => fake()->numberBetween(0, 1),
 		];
 	}
 }
