@@ -26,13 +26,21 @@ class AdminPanelProvider extends PanelProvider
 		return $panel
 			->default()
 			->font('Kode Mono')
+			// ->topNavigation()
+			->sidebarWidth('15rem')
+			->sidebarCollapsibleOnDesktop()
+			->favicon(asset('images/favicon.ico'))
+			->brandLogo(asset('images/logo.png'))
+			->brandLogoHeight('3rem')
+			->brandName('Clube Full-Stack')
 			->passwordReset()
+			->spa()
 			->revealablePasswords(true)
 			->id('admin')
 			->path('admin')
 			->login()
 			->colors([
-				'primary' => Color::Amber,
+				'primary' => Color::Brand,
 			])
 			->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
 			->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
