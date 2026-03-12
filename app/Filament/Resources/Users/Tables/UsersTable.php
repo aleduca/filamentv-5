@@ -6,6 +6,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -15,27 +16,25 @@ class UsersTable
 	{
 		return $table
 			->columns([
-				TextColumn::make('name')
-					->searchable(),
-				TextColumn::make('email')
-					->label('Email address')
-					->searchable(),
-				TextColumn::make('created_at')
-					->dateTime()
-					->sortable()
-					->toggleable(isToggledHiddenByDefault: true),
-				TextColumn::make('updated_at')
-					->dateTime()
-					->sortable()
-					->toggleable(isToggledHiddenByDefault: true),
-				TextColumn::make('age')
-					->numeric()
-					->sortable(),
+				TextColumn::make('name')->sortable()->searchable(),
+				TextColumn::make('email')->limit(10)->sortable()->searchable(),
+				TextColumn::make('age')->sortable(),
 				TextColumn::make('gender')
-					->badge(),
+				->formatStateUsing(
+					fn ($state) => match ($state) {
+						'male' => 'Masculino',
+						'female' => 'Feminino',
+					}
+				),
+				TextColumn::make('posts_count')->label('Posts')->counts('posts')->icon(Heroicon::ClipboardDocumentList),
 				TextColumn::make('is_admin')
-					->numeric()
-					->sortable(),
+				->label('Admin?')
+				->badge()
+				->color(fn ($state) => $state === 1 ? 'success' : 'red')
+				->formatStateUsing(fn ($state) => match ($state) {
+					1 => 'Yes',
+					0 => 'No',
+				}),
 			])
 			->filters([
 				//
@@ -46,7 +45,7 @@ class UsersTable
 			])
 			->toolbarActions([
 				BulkActionGroup::make([
-					DeleteBulkAction::make(),
+				DeleteBulkAction::make(),
 				]),
 			]);
 	}
