@@ -8,6 +8,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Support\Colors\Color;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Table;
@@ -22,14 +23,14 @@ class UsersTable
 			->recordActions([
 				// ViewAction::make(),
 				EditAction::make(),
-				EmailAction::make(),
+				// EmailAction::make(),
 				DeleteAction::make()
 				->authorize('delete')
 				->authorizationNotification(function ($action) {
 					$canDelete = $action->isAuthorized();
 
 					(!$canDelete) ?
-						$action->icon(Heroicon::XMark)->color('gray') :
+						$action->icon(Heroicon::XMark)->color(Color::hex('#808080'))->label('Can not delete') :
 						$action->icon(Heroicon::Trash)->color('red');
 
 					return $action;
