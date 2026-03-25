@@ -23,7 +23,7 @@ class UsersTableColumns
 				'female' => 'Female',
 			]),
 			TextColumn::make('posts_count')->label('Posts')->counts('posts')->icon(Heroicon::ClipboardDocumentList),
-			ToggleColumn::make('is_admin'),
+			ToggleColumn::make('is_admin')->label('Admin?'),
 			TextColumn::make('created_at')->label('Created')->dateTime('d/m/Y')->toggleable(isToggledHiddenByDefault:true)->alignCenter(),
 			TextColumn::make('updated_at')->label('Updated')->dateTime('d/m/Y')->toggleable(isToggledHiddenByDefault:true),
 		];
