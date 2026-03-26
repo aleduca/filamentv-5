@@ -17,4 +17,9 @@ class UserPolicy
 
 		return Response::allow();
 	}
+
+	public function bulkDelete(User $user, User $record)
+	{
+		return $record->roles === 'user';
+	}
 }

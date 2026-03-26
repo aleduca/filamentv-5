@@ -14,7 +14,7 @@ class EmailAction
 {
 	public static function make()
 	{
-		return 	Action::make('email')
+		return Action::make('email')
 					->label('E-mail')
 					->icon(Heroicon::Envelope)
 					->modalIcon(Heroicon::EnvelopeOpen)

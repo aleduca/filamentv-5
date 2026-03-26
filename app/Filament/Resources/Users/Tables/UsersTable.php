@@ -3,12 +3,11 @@
 namespace App\Filament\Resources\Users\Tables;
 
 use App\Filament\Resources\Users\Tables\Actions\EmailAction;
+use App\Filament\Resources\Users\Tables\Actions\UserBulkDelete;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
-use Filament\Support\Colors\Color;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Table;
@@ -23,31 +22,22 @@ class UsersTable
 			->recordActions([
 				// ViewAction::make(),
 				EditAction::make(),
-				// EmailAction::make(),
+				EmailAction::make(),
 				DeleteAction::make()
 				->authorize('delete')
-				->authorizationNotification(function ($action) {
+				->authorizationTooltip(function ($action) {
 					$canDelete = $action->isAuthorized();
 
-					(!$canDelete) ?
-						$action->icon(Heroicon::XMark)->color(Color::hex('#808080'))->label('Can not delete') :
-						$action->icon(Heroicon::Trash)->color('red');
+					if (!$canDelete) {
+						$action->icon(Heroicon::XMark)->color('gray');
+					}
 
 					return $action;
 				}),
-				// ->authorizationTooltip(function ($action) {
-				// 	$canDelete = $action->isAuthorized();
-
-				// 	if (!$canDelete) {
-				// 		$action->icon(Heroicon::XMark)->color('gray');
-				// 	}
-
-				// 	return $action;
-				// }),
 			])
 			->toolbarActions([
 				BulkActionGroup::make([
-					DeleteBulkAction::make(),
+					UserBulkDelete::make(),
 				]),
 			]);
 	}
