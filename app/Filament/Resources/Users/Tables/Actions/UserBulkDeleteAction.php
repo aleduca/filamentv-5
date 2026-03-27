@@ -7,7 +7,7 @@ use Filament\Actions\BulkAction;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Collection;
 
-class UserBulkDelete
+class UserBulkDeleteAction
 {
 	public static function make()
 	{
@@ -16,7 +16,7 @@ class UserBulkDelete
 						->icon(Heroicon::Trash)
 						->color('red')
 						->requiresConfirmation()
-						->authorizeIndividualRecords('bulkDelete')
+						// ->authorizeIndividualRecords('bulkDelete')
 						->failureNotificationTitle(function ($successCount, $totalCount) {
 							if ($successCount) {
 								return "{$successCount} of {$totalCount} users deleted";
@@ -27,7 +27,7 @@ class UserBulkDelete
 						->successNotificationTitle('Users deleted')
 						->action(function (Collection $records) {
 							$records->each(function (User $record) {
-								// $record->delete();
+								$record->delete();
 							});
 						});
 	}

@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Users\Tables;
 
 use App\Filament\Resources\Users\Tables\Actions\EmailAction;
-use App\Filament\Resources\Users\Tables\Actions\UserBulkDelete;
+use App\Filament\Resources\Users\Tables\Actions\UserBulkDeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
@@ -37,7 +37,7 @@ class UsersTable
 			])
 			->toolbarActions([
 				BulkActionGroup::make([
-					UserBulkDelete::make(),
+					UserBulkDeleteAction::make(),
 				]),
 			]);
 	}
