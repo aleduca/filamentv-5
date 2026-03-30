@@ -16,7 +16,7 @@ class UserBulkDeleteAction
 						->icon(Heroicon::Trash)
 						->color('red')
 						->requiresConfirmation()
-						// ->authorizeIndividualRecords('bulkDelete')
+						->authorizeIndividualRecords('bulkDelete')
 						->failureNotificationTitle(function ($successCount, $totalCount) {
 							if ($successCount) {
 								return "{$successCount} of {$totalCount} users deleted";
