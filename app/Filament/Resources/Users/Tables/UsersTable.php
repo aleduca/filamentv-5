@@ -2,11 +2,11 @@
 
 namespace App\Filament\Resources\Users\Tables;
 
+use App\Filament\Resources\Users\Tables\Actions\EditUserAction;
 use App\Filament\Resources\Users\Tables\Actions\EmailAction;
 use App\Filament\Resources\Users\Tables\Actions\UserBulkDeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
-use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Enums\FiltersLayout;
@@ -21,8 +21,8 @@ class UsersTable
 			->filters(UsersTableFilters::make(), layout: FiltersLayout::AboveContent)->deferFilters(false)
 			->recordActions([
 				// ViewAction::make(),
-				EditAction::make(),
-				EmailAction::make(),
+				EditUserAction::make(),
+				// EmailAction::make(),
 				DeleteAction::make()
 				->authorize('delete')
 				->authorizationTooltip(function ($action) {
