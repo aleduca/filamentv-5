@@ -18,4 +18,19 @@ class EditUser extends EditRecord
 			DeleteAction::make(),
 		];
 	}
+
+	public function getTitle(): string
+	{
+		return 'Edit ' . $this->record->name;
+	}
+
+	public function getSavedNotificationTitle(): ?string
+	{
+		return 'User updated successfully';
+	}
+
+	protected function getRedirectUrl(): string
+	{
+		return $this->getResource()::getUrl('index');
+	}
 }
