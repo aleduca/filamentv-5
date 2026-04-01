@@ -54,11 +54,15 @@ class UserForm
 				// Toggle::make('is_admin')->label('Admin?'),
 				Select::make('is_admin')
 				->required()
-				->formatStateUsing(fn ($state) => $state ? 1 : 0)
+				->formatStateUsing(function ($state, $context) {
+					if ($context === 'edit') {
+						return $state ? 1 : 0;
+					}
+				})
 				->label('Admin?')
 				->options([
-					'true' => 'Yes',
-					'false' => 'No',
+					true => 'Yes',
+					false => 'No',
 				]),
 			]);
 	}
