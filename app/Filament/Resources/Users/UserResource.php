@@ -30,6 +30,8 @@ class UserResource extends Resource
 
 	public static function form(Schema $schema): Schema
 	{
+		// Schema -> organização, hierarquia e comunicação
+		// Usado em forms, actions, layouts e infolists
 		return UserForm::configure($schema); // CREATE/UPDATE
 	}
 
