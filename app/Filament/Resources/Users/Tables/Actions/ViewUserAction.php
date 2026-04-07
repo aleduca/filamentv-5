@@ -2,18 +2,22 @@
 
 namespace App\Filament\Resources\Users\Tables\Actions;
 
-use Filament\Actions\ViewAction;
+use Filament\Actions\Action;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
+use Filament\Support\Colors\Color;
+use Filament\Support\Icons\Heroicon;
 
 class ViewUserAction
 {
 	public static function make()
 	{
-		return 	ViewAction::make()
+		return Action::make('View')
+					->icon(Heroicon::Eye)
+					->color(Color::hex('#FFFFFF'))
+					->slideOver()
 					->modalHeading(fn ($record) => $record->name)
 					->schema([
-
 						Section::make('Name and E-mail')
 						->description('Name and user e-mail')
 						->columns(2)
@@ -21,7 +25,6 @@ class ViewUserAction
 							TextEntry::make('name'),
 							TextEntry::make('email'),
 						]),
-
 						Section::make('Age, Gender and Posts')
 						->columns(2)
 						->description('User age, gender and posts')

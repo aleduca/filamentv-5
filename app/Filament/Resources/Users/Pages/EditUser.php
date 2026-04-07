@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Users\Pages;
 
+use App\Filament\Resources\Users\Tables\Actions\ViewUserAction;
 use App\Filament\Resources\Users\UserResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
@@ -14,6 +15,7 @@ class EditUser extends EditRecord
 	protected function getHeaderActions(): array
 	{
 		return [
+			// ViewUserAction::make(),
 			ViewAction::make(),
 			DeleteAction::make(),
 		];
