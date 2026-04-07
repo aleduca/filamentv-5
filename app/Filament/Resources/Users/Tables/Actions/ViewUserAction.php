@@ -6,6 +6,7 @@ use Filament\Actions\Action;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
 use Filament\Support\Colors\Color;
+use Filament\Support\Enums\Width;
 use Filament\Support\Icons\Heroicon;
 
 class ViewUserAction
@@ -16,6 +17,8 @@ class ViewUserAction
 					->icon(Heroicon::Eye)
 					->color(Color::hex('#FFFFFF'))
 					->slideOver()
+					->modalSubmitAction(false)
+					->modalWidth(Width::ExtraLarge)
 					->modalHeading(fn ($record) => $record->name)
 					->schema([
 						Section::make('Name and E-mail')
