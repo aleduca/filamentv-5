@@ -38,6 +38,7 @@ class AdminPanelProvider extends PanelProvider
 			->revealablePasswords(true)
 			->id('admin')
 			->path('admin')
+            ->viteTheme('resources/css/filament/admin/theme.css')
 			->login()
 			->colors([
 				'primary' => ColorPanel::Brand,
