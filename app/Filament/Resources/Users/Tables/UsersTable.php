@@ -17,6 +17,9 @@ class UsersTable
 	public static function configure(Table $table): Table
 	{
 		return $table
+			->recordUrl(
+				fn ($record): string => route('filament.admin.resources.users.view', ['record' => $record]),
+			)
 			->columns(UsersTableColumns::make())->deferColumnManager(false)
 			->filters(UsersTableFilters::make(), layout: FiltersLayout::AboveContent)->deferFilters(false)
 			->recordActions([

@@ -27,7 +27,7 @@ class UsersTableColumns
 			// 	'female' => 'Female',
 			// ]),
 			ToggleColumn::make('is_admin')->label('Admin?'),
-			TextColumn::make('posts_count')->label('Posts')->counts('posts')->icon(Heroicon::ClipboardDocumentList),
+			TextColumn::make('posts_count')->label('Posts')->icon(Heroicon::ClipboardDocumentList),
 			TextColumn::make('created_at')->label('Created')->dateTime('d/m/Y')->toggleable(isToggledHiddenByDefault:true)->alignCenter(),
 			TextColumn::make('updated_at')->label('Updated')->dateTime('d/m/Y')->toggleable(isToggledHiddenByDefault:true),
 			PercentPosts::make('Posts%')

@@ -15,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class UserResource extends Resource
 {
@@ -43,6 +44,11 @@ class UserResource extends Resource
 	public static function table(Table $table): Table
 	{
 		return UsersTable::configure($table); // READ
+	}
+
+	public static function getEloquentQuery(): Builder
+	{
+		return parent::getEloquentQuery()->withCount('posts');
 	}
 
 	public static function getRelations(): array
