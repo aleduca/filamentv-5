@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Users\Schemas;
 
+use App\Filament\Infolists\Components\PercentPostsEntry;
+use App\Models\Post;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -85,7 +87,14 @@ class UserInfolist
 				->columns(2)
 				->schema([
 					TextEntry::make('posts_count')
-				->label('Posts'),
+					->label('Posts'),
+					PercentPostsEntry::make('Posts')
+							->posts(function () {
+								return Post::count();
+							})
+							->extraAttributes([
+								'class' => 'text-center',
+							]),
 				]),
 			]);
 	}
