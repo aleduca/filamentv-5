@@ -29,6 +29,7 @@ class PostForm
 				})
 					->required(),
 				TextInput::make('slug')
+					->readonly()
 					->unique('posts', 'slug', ignoreRecord:true)
 					->required(),
 				Textarea::make('content')
