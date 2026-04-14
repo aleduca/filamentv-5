@@ -3,10 +3,12 @@
 namespace App\Filament\Resources\Posts\Schemas;
 
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Str;
 
 class PostForm
 {
@@ -21,8 +23,13 @@ class PostForm
 				->relationship('category', 'name')
 				->required(),
 				TextInput::make('title')
+				->live(onBlur:true)
+				->afterStateUpdated(function (Set $set, $state) {
+					$set('slug', Str::slug($state));
+				})
 					->required(),
 				TextInput::make('slug')
+					->unique('posts', 'slug', ignoreRecord:true)
 					->required(),
 				Textarea::make('content')
 					->rows(10)
