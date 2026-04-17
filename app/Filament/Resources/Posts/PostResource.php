@@ -46,7 +46,7 @@ class PostResource extends Resource
 
 	public static function getEloquentQuery(): Builder
 	{
-		return parent::getEloquentQuery()->orderBy('posts.id', 'desc');
+		return parent::getEloquentQuery()->orderBy('id', 'desc');
 	}
 
 	public static function getRelations(): array

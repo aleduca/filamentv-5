@@ -13,26 +13,6 @@ class UsersTableFilters
 	public static function make()
 	{
 		return [
-			// Filter::make('is_admin')->toggle()->label('Admin?')->query(fn (Builder $query): Builder => $query->where('is_admin', true)),
-
-			// TernaryFilter::make('is_admin')
-			// ->label('Admin?')
-			// ->trueLabel('Only admins')
-			// ->falseLabel('Only users')
-			// ->placeholder('Everyone'),
-
-			// SelectFilter::make('is_admin')
-			// 	->options([
-			// 		true => 'Yes',
-			// 		false => 'No',
-			// 	]),
-
-			// SelectFilter::make('gender')
-			// 	->options([
-			// 		'male' => 'Male',
-			// 		'female' => 'Female',
-			// 	]),
-
 			QueryBuilder::make()
 			->constraints([
 				TextConstraint::make('name'),

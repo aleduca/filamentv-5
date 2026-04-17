@@ -4,12 +4,12 @@ namespace App\Filament\Resources\Users\Tables;
 
 use App\Filament\Resources\Users\Tables\Actions\DeleteUserAction;
 use App\Filament\Resources\Users\Tables\Actions\EditUserAction;
-use App\Filament\Resources\Users\Tables\Actions\EmailAction;
 use App\Filament\Resources\Users\Tables\Actions\UserBulkDeleteAction;
 use App\Filament\Resources\Users\Tables\Actions\ViewUserAction;
+use App\Filament\Resources\Users\Tables\UsersTableColumns;
+use App\Filament\Resources\Users\Tables\UsersTableFilters;
 use App\Models\Post;
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\ViewAction;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Table;
 
@@ -27,9 +27,7 @@ class UsersTable
 			->filters(UsersTableFilters::make(), layout: FiltersLayout::AboveContent)->deferFilters(false)
 			->recordActions([
 				ViewUserAction::make($totalPosts),
-				// ViewAction::make(),
 				EditUserAction::make(),
-				// EmailAction::make(),
 				DeleteUserAction::make(),
 			])
 			->toolbarActions([
