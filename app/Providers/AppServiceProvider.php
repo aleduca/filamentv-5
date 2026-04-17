@@ -6,7 +6,10 @@ use Filament\Support\Assets\Css;
 use Filament\Support\Enums\TextSize;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentColor;
+use Filament\Support\Facades\FilamentView;
 use Filament\Tables\Columns\TextColumn;
+use Filament\View\PanelsRenderHook;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -37,5 +40,10 @@ class AppServiceProvider extends ServiceProvider
 			'red' => '#dc143c',
 			'custom_color' => '#27DAF5',
 		]);
+
+		FilamentView::registerRenderHook(
+			PanelsRenderHook::FOOTER,
+			fn (): View => view('filament.footer'),
+		);
 	}
 }

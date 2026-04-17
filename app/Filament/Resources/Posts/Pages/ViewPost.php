@@ -3,16 +3,18 @@
 namespace App\Filament\Resources\Posts\Pages;
 
 use App\Filament\Resources\Posts\PostResource;
+use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
+use Illuminate\Contracts\View\View;
 
 class ViewPost extends ViewRecord
 {
 	protected static string $resource = PostResource::class;
 
-	public function getTitle(): string
+	public function getHeader(): ?View
 	{
-		return $this->record->title;
+		return view('filament.posts.view.header');
 	}
 
 	protected function getHeaderActions(): array

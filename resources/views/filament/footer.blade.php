@@ -1,0 +1,1 @@
+<p class="text-center">Todos os direitos reservados {{ date('Y') }}</p>
