@@ -66,8 +66,6 @@ class EditProfile extends PagesEditProfile
 				->description('Upload new Avatar')
 				->schema([
 					FileUpload::make('avatar')
-					->disk('public')
-					->directory('avatars')
 					->imageEditor()
 					->circleCropper()
 					->avatar()
