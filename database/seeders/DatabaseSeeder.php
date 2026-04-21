@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Avatar;
+use App\Models\Category;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Post;
-use App\Models\Category;
 
 class DatabaseSeeder extends Seeder
 {
@@ -38,6 +39,10 @@ class DatabaseSeeder extends Seeder
 			->count(50)
 			->create()
 			->each(function (User $user) use ($categories) {
+				Avatar::factory()->create([
+					'user_id' => $user->id,
+				]);
+
 				Post::factory()
 					->count(fake()->numberBetween(3, 7))
 					->create([

@@ -4,6 +4,7 @@ namespace App\Filament\Pages;
 
 use Filament\Actions\Action;
 use Filament\Auth\Pages\EditProfile as PagesEditProfile;
+use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\View;
@@ -48,6 +49,19 @@ class EditProfile extends PagesEditProfile
 					Action::make('save')
 					->label('Save')
 					->action(fn () => $this->save()),
+				]),
+
+				Section::make('avatar')
+				->description('Upload new Avatar')
+				->schema([
+					FileUpload::make('Avatar')
+					->disk('public')
+					->directory('avatars')
+					->imageEditor()
+					->circleCropper()
+					->maxSize(1024)
+					->acceptedFileTypes(['image/png', 'image/jpeg', 'image/jpg'])
+					->avatar(),
 				]),
 			]);
 	}
