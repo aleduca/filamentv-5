@@ -4,14 +4,18 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Avatar;
+use App\Models\Post;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser, HasAvatar
 {
 	/** @use HasFactory<\Database\Factories\UserFactory> */
 	use HasFactory, Notifiable;
@@ -59,8 +63,22 @@ class User extends Authenticatable implements FilamentUser
 		return $this->is_admin && $this->hasVerifiedEmail();
 	}
 
+	public function getFilamentAvatarUrl(): ?string
+	{
+		if ($path = $this->avatar?->path) {
+			return $path;
+		}
+
+		return asset('images/no-avatar.png');
+	}
+
 	public function posts():HasMany
 	{
 		return $this->hasMany(Post::class);
+	}
+
+	public function avatar():HasOne
+	{
+		return $this->hasOne(Avatar::class);
 	}
 }

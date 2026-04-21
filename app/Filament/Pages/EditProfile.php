@@ -5,17 +5,23 @@ namespace App\Filament\Pages;
 use Filament\Actions\Action;
 use Filament\Auth\Pages\EditProfile as PagesEditProfile;
 use Filament\Forms\Components\FileUpload;
+use Filament\Notifications\Notification;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Storage;
 
 class EditProfile extends PagesEditProfile
 {
-	// protected string $view = 'filament.pages.edit-profile';
+	protected string $view = 'filament.pages.edit-profile';
+
+	public ?array $avatar = [];
 
 	public function getHeader(): ?View
 	{
-		return view('filament.profile.header');
+		return view('filament.profile.header', [
+			'user' => $this->getUser(),
+		]);
 	}
 
 	public function getFormActions(): array
@@ -50,19 +56,68 @@ class EditProfile extends PagesEditProfile
 					->label('Save')
 					->action(fn () => $this->save()),
 				]),
+			]);
+	}
 
-				Section::make('avatar')
+	public function avatarForm(Schema $schema):Schema
+	{
+		return $schema->components([
+			Section::make('Avatar')
 				->description('Upload new Avatar')
 				->schema([
-					FileUpload::make('Avatar')
+					FileUpload::make('avatar')
 					->disk('public')
 					->directory('avatars')
 					->imageEditor()
 					->circleCropper()
-					->maxSize(1024)
-					->acceptedFileTypes(['image/png', 'image/jpeg', 'image/jpg'])
-					->avatar(),
+					->avatar()
+					->hiddenLabel()
+					->extraAttributes([
+						'class' => 'mx-auto',
+					]),
+				])->footerActions([
+					Action::make('avatar')
+					->label('Update Avatar')
+					->color('danger')
+					->action(fn () => $this->uploadAvatar()),
 				]),
-			]);
+		]);
+	}
+
+	private function uploadAvatar()
+	{
+		if (empty($this->avatar)) {
+			return;
+		}
+
+		$this->validate([
+			'avatar.*' => 'image|mimes:jpeg,png,jpg|max:1024',
+		]);
+
+		$file = collect($this->avatar)->first();
+
+		$path = $file->store('avatars', 'public');
+
+		$user = $this->getUser();
+
+		if ($user->avatar && $user->avatar->path) {
+			$oldPath = str_replace('/storage/', '', $user->avatar->path);
+			if (Storage::disk('public')->exists($oldPath)) {
+				Storage::disk('public')->delete($oldPath);
+			}
+		}
+
+		$avatar = $user->avatar;
+		$avatar->path = '/storage/' . $path;
+		$avatar->save();
+
+		$this->avatarForm->fill(['avatar' => null]);
+
+		Notification::make()
+		->title('Avatar saved')
+		->success()
+		->send();
+
+		// dd($this->avatar, $file);
 	}
 }
