@@ -20,7 +20,7 @@ class ViewPost extends ViewRecord
 	protected function getHeaderActions(): array
 	{
 		return [
-			EditAction::make(),
+			EditAction::make()->url(fn () => route('filament.admin.resources.posts.edit', ['record' => $this->record])),
 		];
 	}
 }

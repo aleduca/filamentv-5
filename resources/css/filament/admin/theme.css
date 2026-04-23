@@ -6,3 +6,7 @@
 .fi-fo-field-wrp-error-message {
   text-align: center;
 }
+
+[style*="--color"] {
+  color: var(--color);
+}

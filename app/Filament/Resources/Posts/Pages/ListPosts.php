@@ -11,12 +11,10 @@ class ListPosts extends ListRecords
 {
 	protected static string $resource = PostResource::class;
 
-	public ?string $subheading = 'Meus posts';
-
 	protected function getHeaderActions(): array
 	{
 		return [
-			CreateAction::make(),
+			CreateAction::make()->label('Create new Post')->url(fn () => route('filament.admin.resources.posts.create')),
 		];
 	}
 

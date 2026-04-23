@@ -35,7 +35,7 @@ class PostInfolist
 				->description('Content')
 				->columnSpanFull()
 				->schema([
-					TextEntry::make('content')->columnSpanFull(),
+					TextEntry::make('content')->html()->columnSpanFull(),
 				]),
 
 				Section::make('Published and Date')
