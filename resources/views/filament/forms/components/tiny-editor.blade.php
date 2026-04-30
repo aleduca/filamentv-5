@@ -9,14 +9,28 @@
         x-init="
           $nextTick(() => {
                tinymce.init({
+                menubar:false,
                 selector: 'textarea',
-                plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+                target:$refs.editor,
+                license_key:'gpl',
+                highlight_on_focus:false,
+                skin:'oxide-dark',
+                plugins: 'link image lists code',
+                toolbar: 'blocks | bold italic | bullist numlist | link code',
+                content_css:'dark',
+                content_style:`
+                  body {
+                    background-color:#09090b;
+                    color:#daffff;
+                    font-family:Kode Mono;
+                    font-size:16pt;
+                  }
+                `
               });
           })
         "
     >
-      <textarea>
+      <textarea x-ref="editor">
        {{ $getState() }}
       </textarea>
     </div>
