@@ -2,12 +2,21 @@
     :component="$getFieldWrapperView()"
     :field="$field"
 >
-    <script src="https://cdn.tiny.cloud/1/g6fyqfff3wksyljiamxytie3pyg3rpmsf45d2fpb4ofrrr0u/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
+    {{-- <script src="https://cdn.tiny.cloud/1/g6fyqfff3wksyljiamxytie3pyg3rpmsf45d2fpb4ofrrr0u/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script> --}}
+    @once
+      @vite('resources/js/tiny.js')
+    @endonce
     <div
+        wire:ignore
         x-data="{ state: $wire.$entangle(@js($getStatePath())) }"
         {{ $getExtraAttributeBag() }}
         x-init="
           $nextTick(() => {
+
+              if(tinymce.get($refs.editor)){
+                tinymce.remove($refs.editor);
+              }
+
                tinymce.init({
                 menubar:false,
                 selector: 'textarea',
