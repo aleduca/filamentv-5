@@ -24,8 +24,10 @@
                 license_key:'gpl',
                 highlight_on_focus:false,
                 skin:'oxide-dark',
+                images_upload_handler:tinyUpload($wire),
+                images_file_types:'jpg,jpeg,png',
                 plugins: 'link image lists code',
-                toolbar: 'blocks | bold italic | bullist numlist | link code',
+                toolbar: 'blocks | bold italic | bullist numlist | link code | image',
                 content_css:'dark',
                 content_style:`
                   body {
