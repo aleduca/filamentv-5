@@ -70,6 +70,7 @@ class PostForm
 				// 	->extraAttributes([
 				// 		'style' => 'min-height: 300px',
 				// 	])
+				// data['content']
 				TinyEditor::make('content')
 				->required()
 				->columnSpanFull(),

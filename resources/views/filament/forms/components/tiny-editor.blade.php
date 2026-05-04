@@ -8,6 +8,7 @@
     @endonce
     <div
         wire:ignore
+        {{-- state -> data['content'] --}}
         x-data="{ state: $wire.$entangle(@js($getStatePath())) }"
         {{ $getExtraAttributeBag() }}
         x-init="
@@ -36,7 +37,16 @@
                     font-family:Kode Mono;
                     font-size:16pt;
                   }
-                `
+                `,
+                setup(editor){
+                  editor.on('change',() => {
+                    // data.content
+                    {{-- console.log(state, editor.getContent()); --}}
+                    state = editor.getContent();
+                    {{-- state = editor.getContent(); --}}
+                    {{-- $wire.set('{{ $getStatePath() }}', editor.getContent()); --}}
+                  })
+                }
               });
           })
         "
