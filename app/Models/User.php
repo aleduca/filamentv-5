@@ -63,6 +63,11 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
 		return $this->is_admin && $this->hasVerifiedEmail();
 	}
 
+	public function canManageSettings():bool
+	{
+		return true;
+	}
+
 	public function getFilamentAvatarUrl(): ?string
 	{
 		if ($path = $this->avatar?->path) {
