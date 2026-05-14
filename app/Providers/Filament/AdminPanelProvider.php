@@ -4,13 +4,17 @@ namespace App\Providers\Filament;
 
 use App\Filament\Colors\ColorPanel;
 use App\Filament\Pages\EditProfile;
+use App\Filament\Widgets\Stats;
+use Filament\Actions\Action;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Notifications\Notification;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\Support\Icons\Heroicon;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -18,6 +22,8 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
@@ -42,6 +48,20 @@ class AdminPanelProvider extends PanelProvider
 			->path('admin')
 			->viteTheme('resources/css/filament/admin/theme.css')
 			->login()
+			->userMenuItems([
+				Action::make('Clear Cache')
+				->icon(Heroicon::DocumentMinus)
+				->action(function () {
+					Artisan::call('optimize:clear');
+
+					Cache::put('last_cache_clear', now());
+
+					Notification::make()
+					->title('Cache cleared')
+					->success()
+					->send();
+				}),
+			])
 			->colors([
 				'primary' => ColorPanel::Brand,
 			])
@@ -53,7 +73,8 @@ class AdminPanelProvider extends PanelProvider
 			->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
 			->widgets([
 				AccountWidget::class,
-				FilamentInfoWidget::class,
+				Stats::class,
+				// FilamentInfoWidget::class,
 			])
 			->middleware([
 				EncryptCookies::class,
