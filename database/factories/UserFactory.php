@@ -27,7 +27,6 @@ class UserFactory extends Factory
 			'age' => fake()->numberBetween(10, 60),
 			'gender' => fake()->randomElement(['male', 'female']),
 			'is_admin' => fake()->numberBetween(0, 1),
-			'roles' => fake()->randomElement(['user', 'admin', 'super-admin']),
 		];
 	}
 }

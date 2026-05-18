@@ -48,6 +48,7 @@ class Stats extends StatsOverviewWidget
 				$lastClear ?
 				Carbon::parse($lastClear)->format('d/m/Y H:i') : 'Nunca'
 			)
+			->columnSpanFull()
 			->description(
 				$lastClear ?
 				Carbon::parse($lastClear)->diffForHumans() : 'Cache nunca foi limpo'

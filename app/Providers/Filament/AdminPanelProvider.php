@@ -3,7 +3,9 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Colors\ColorPanel;
+use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use App\Filament\Pages\EditProfile;
+use App\Filament\Widgets\LatestUsers;
 use App\Filament\Widgets\Stats;
 use Filament\Actions\Action;
 use Filament\Http\Middleware\Authenticate;
@@ -74,6 +76,7 @@ class AdminPanelProvider extends PanelProvider
 			->widgets([
 				AccountWidget::class,
 				Stats::class,
+				LatestUsers::class,
 				// FilamentInfoWidget::class,
 			])
 			->middleware([
@@ -86,6 +89,9 @@ class AdminPanelProvider extends PanelProvider
 				SubstituteBindings::class,
 				DisableBladeIconComponents::class,
 				DispatchServingFilamentEvent::class,
+			])
+			->plugins([
+				FilamentShieldPlugin::make(),
 			])
 			->authMiddleware([
 				Authenticate::class,

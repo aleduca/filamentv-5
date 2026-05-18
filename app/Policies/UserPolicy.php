@@ -2,24 +2,71 @@
 
 namespace App\Policies;
 
-use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use Illuminate\Foundation\Auth\User as AuthUser;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy
 {
-	public function delete(User $user, User $record)
-	{
-		$canDelete = $record->roles === 'user';
+    use HandlesAuthorization;
+    
+    public function viewAny(AuthUser $authUser): bool
+    {
+        return $authUser->can('ViewAny:User');
+    }
 
-		if (!$canDelete) {
-			return Response::deny('Can not delete this user');
-		}
+    public function view(AuthUser $authUser): bool
+    {
+        return $authUser->can('View:User');
+    }
 
-		return Response::allow();
-	}
+    public function create(AuthUser $authUser): bool
+    {
+        return $authUser->can('Create:User');
+    }
 
-	public function bulkDelete(User $user, User $record)
-	{
-		return $record->roles === 'user';
-	}
+    public function update(AuthUser $authUser): bool
+    {
+        return $authUser->can('Update:User');
+    }
+
+    public function delete(AuthUser $authUser): bool
+    {
+        return $authUser->can('Delete:User');
+    }
+
+    public function deleteAny(AuthUser $authUser): bool
+    {
+        return $authUser->can('DeleteAny:User');
+    }
+
+    public function restore(AuthUser $authUser): bool
+    {
+        return $authUser->can('Restore:User');
+    }
+
+    public function forceDelete(AuthUser $authUser): bool
+    {
+        return $authUser->can('ForceDelete:User');
+    }
+
+    public function forceDeleteAny(AuthUser $authUser): bool
+    {
+        return $authUser->can('ForceDeleteAny:User');
+    }
+
+    public function restoreAny(AuthUser $authUser): bool
+    {
+        return $authUser->can('RestoreAny:User');
+    }
+
+    public function replicate(AuthUser $authUser): bool
+    {
+        return $authUser->can('Replicate:User');
+    }
+
+    public function reorder(AuthUser $authUser): bool
+    {
+        return $authUser->can('Reorder:User');
+    }
+
 }
