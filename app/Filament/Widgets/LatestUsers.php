@@ -27,7 +27,10 @@ class LatestUsers extends TableWidget
 	public function table(Table $table): Table
 	{
 		return $table
-			->query(fn (): Builder => User::query()->latest()->limit(5))
+			->query(fn (): Builder => User::query()
+			->latest()
+			->withCount('posts')
+			->limit(5))
 			->columns([
 				TextColumn::make('id')->label('ID'),
 				TextColumn::make('name')->limit(10)
@@ -40,6 +43,8 @@ class LatestUsers extends TableWidget
 					fn ($state) => $state === 'No Role' ? 'gray' : 'success'
 				)
 				->badge(),
+
+				TextColumn::make('posts_count')->badge()->label('Posts'),
 			])
 			->paginated(false)
 			// ->defaultPaginationPageOption(5)
