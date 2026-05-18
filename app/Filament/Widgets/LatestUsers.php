@@ -17,7 +17,7 @@ class LatestUsers extends TableWidget
 {
 	protected static bool $isDiscovered = false;
 	// protected int | string | array $columnSpan = 'full';
-	protected static ?string $heading = 'Lista de Users';
+	protected static ?string $heading = 'Latest Users';
 
 	public function table(Table $table): Table
 	{
@@ -25,15 +25,20 @@ class LatestUsers extends TableWidget
 			->query(
 				fn (): Builder => User::query()->latest()
 			->with('roles')
+			->limit(5)
 			->withCount('posts')
 			)
 			->columns([
+
+				TextColumn::make('id')
+							->label('ID'),
+
 				TextColumn::make('name')
-				->searchable()
+				// ->searchable()
 				->label('User Name')
 				->tooltip(fn ($record) => $record->name)
-				->limit(10)
-				->sortable(),
+				->limit(10),
+				// ->sortable(),
 
 				TextColumn::make('roles.name')
 				->badge()
@@ -45,10 +50,11 @@ class LatestUsers extends TableWidget
 
 				TextColumn::make('posts_count')
 				->label('Posts')
-				->badge()
-				->sortable(),
+				->badge(),
+				// ->sortable(),
 			])
-			->defaultPaginationPageOption(5)
+			->paginated(false)
+			// ->defaultPaginationPageOption(5)
 			->filters([
 				//
 			])
@@ -60,7 +66,7 @@ class LatestUsers extends TableWidget
 			])
 			->toolbarActions([
 				BulkActionGroup::make([
-					DeleteBulkAction::make(),
+					// DeleteBulkAction::make(),
 				]),
 			]);
 	}
