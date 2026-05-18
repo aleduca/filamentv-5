@@ -5,7 +5,6 @@ namespace App\Filament\Widgets;
 use App\Models\User;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
@@ -16,42 +15,31 @@ use Override;
 class LatestUsers extends TableWidget
 {
 	protected static bool $isDiscovered = false;
-	// protected int | string | array $columnSpan = 'full';
 	protected static ?string $heading = 'Latest Users';
+	// protected int | string | array $columnSpan = 'full';
+
+	// #[Override]
+	// protected function getTableHeading(): string|Htmlable|null
+	// {
+	// 	return 'Teste ';
+	// }
 
 	public function table(Table $table): Table
 	{
 		return $table
-			->query(
-				fn (): Builder => User::query()->latest()
-			->with('roles')
-			->limit(5)
-			->withCount('posts')
-			)
+			->query(fn (): Builder => User::query()->latest()->limit(5))
 			->columns([
-
-				TextColumn::make('id')
-							->label('ID'),
-
-				TextColumn::make('name')
-				// ->searchable()
-				->label('User Name')
+				TextColumn::make('id')->label('ID'),
+				TextColumn::make('name')->limit(10)
 				->tooltip(fn ($record) => $record->name)
-				->limit(10),
-				// ->sortable(),
-
+				->label('User Name'),
 				TextColumn::make('roles.name')
-				->badge()
-				->default('No role')
-				->label('Role')
+				->label('Roles')
+				->default('No Role')
 				->color(
-					fn ($state) => $state === 'No role' ? 'gray' : 'success'
-				),
-
-				TextColumn::make('posts_count')
-				->label('Posts')
+					fn ($state) => $state === 'No Role' ? 'gray' : 'success'
+				)
 				->badge(),
-				// ->sortable(),
 			])
 			->paginated(false)
 			// ->defaultPaginationPageOption(5)
@@ -66,7 +54,7 @@ class LatestUsers extends TableWidget
 			])
 			->toolbarActions([
 				BulkActionGroup::make([
-					// DeleteBulkAction::make(),
+					//
 				]),
 			]);
 	}
