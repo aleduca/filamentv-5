@@ -16,8 +16,8 @@ class PublishedPostsChart extends ChartWidget
 	#[Override]
 	public function getHeading(): string|Htmlable|null
 	{
-		return 'Posts publicados de ' . now()->startOfWeek()->format('d/m')
-		. ' até ' . now()->endOfWeek()->format('d/m');
+		return 'Posts publicados de ' . now()->subDays(6)->format('d/m')
+		. ' até ' . now()->format('d/m');
 	}
 
 	protected function getData(): array
