@@ -6,6 +6,7 @@ use App\Filament\Colors\ColorPanel;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use App\Filament\Pages\EditProfile;
 use App\Filament\Widgets\LatestUsers;
+use App\Filament\Widgets\PublishedPostsChart;
 use App\Filament\Widgets\Stats;
 use Filament\Actions\Action;
 use Filament\Http\Middleware\Authenticate;
@@ -77,6 +78,7 @@ class AdminPanelProvider extends PanelProvider
 				AccountWidget::class,
 				Stats::class,
 				LatestUsers::class,
+				PublishedPostsChart::class,
 				// FilamentInfoWidget::class,
 			])
 			->middleware([

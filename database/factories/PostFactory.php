@@ -27,6 +27,10 @@ class PostFactory extends Factory
 			'slug' => str()->slug($title) . '-' . fake()->unique()->numberBetween(100, 999),
 			'content' => fake()->paragraphs(4, true),
 			'published' => fake()->boolean(70),
+			'created_at' => fake()->dateTimeBetween(
+				now()->startOfMonth(),
+				now()->endOfMonth(),
+			),
 		];
 	}
 }
