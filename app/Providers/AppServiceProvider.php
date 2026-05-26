@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use BezhanSalleh\LanguageSwitch\Enums\Placement;
+use BezhanSalleh\LanguageSwitch\LanguageSwitch;
 use Filament\Support\Assets\Css;
 use Filament\Support\Enums\TextSize;
 use Filament\Support\Facades\FilamentAsset;
@@ -27,6 +29,26 @@ class AppServiceProvider extends ServiceProvider
 	 */
 	public function boot(): void
 	{
+		LanguageSwitch::configureUsing(function (LanguageSwitch $switch) {
+			$switch->locales(['en', 'fr', 'ar', 'de', 'es', 'pt', 'ko', 'pt_BR'])
+			->visible(outsidePanels:true)
+			->outsidePanelPlacement(Placement::TopLeft)
+			// ->outsidePanelRoutes([
+			// 	'home',
+			// ])
+			->nativeLabel()
+			->flags([
+				'en' => asset('flags/us.svg'),
+				'fr' => asset('flags/fr.svg'),
+				'ar' => asset('flags/sa.svg'),
+				'de' => asset('flags/de.svg'),
+				'es' => asset('flags/es.svg'),
+				'pt' => asset('flags/pt.svg'),
+				'ko' => asset('flags/kr.svg'),
+				'pt_BR' => asset('flags/br.svg'),
+			]);
+		});
+
 		FilamentAsset::register([
 			Css::make('custom', resource_path('css/filament/custom.css')),
 		]);
