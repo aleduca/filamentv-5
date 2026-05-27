@@ -9,7 +9,7 @@
                 </div>
 
                 <div class="text-sm text-gray-500">
-                    Total de Posts
+                    {{ __('my-posts.total') }}
                 </div>
             </div>
             <x-heroicon-o-document-text class="w-10 h-10 text-orange-400" />
@@ -24,7 +24,7 @@
                   </div>
 
                   <div class="text-sm text-gray-500">
-                      Posts Publicados
+                        {{ __('my-posts.published') }}
                   </div>
               </div>
               <x-heroicon-o-check-badge class="w-10 h-10 text-success-500" />
@@ -38,7 +38,7 @@
                     {{ auth()->user()->name }}
                 </div>
                 <div class="text-sm text-gray-500">
-                    Usuário Logado
+                       {{ __('my-posts.logged') }}
                 </div>
             </div>
             <x-heroicon-o-user class="w-10 h-10 text-primary-500" />

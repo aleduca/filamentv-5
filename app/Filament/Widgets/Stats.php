@@ -26,35 +26,46 @@ class Stats extends StatsOverviewWidget
 		$lastClear = Cache::get('last_cache_clear');
 
 		return [
-			Stat::make('Todos os users', User::count('users.id'))
-			->description('Todos os users do portal')
-			->icon(Heroicon::Users),
-			// ->descriptionColor('success'),
-
-			Stat::make('Todos os posts', Post::count('posts.id'))
-			->description('Todos os posts do portal')
-			->icon(Heroicon::DocumentChartBar),
-
-			Stat::make('Posts publicados', Auth::user()->posts->where('published', true)->count())
-			->description('Todos os meus posts publicados')
-			->icon(Heroicon::DocumentCheck),
-
-			Stat::make('Posts criados', Auth::user()->posts->count())
-			->description('Todos os meus posts que eu criei')
-			->icon(Heroicon::DocumentText),
+			Stat::make(
+				__('widget-stats.card-1'),
+				User::count('users.id')
+			)
+			->icon(Heroicon::Users)
+			->description(__('widget-stats.card-1-description')),
 
 			Stat::make(
-				'Última limpeza',
-				$lastClear ?
-				Carbon::parse($lastClear)->format('d/m/Y H:i') : 'Nunca'
+				__('widget-stats.card-2'),
+				Post::count('posts.id')
 			)
-			->columnSpanFull()
-			->description(
-				$lastClear ?
-				Carbon::parse($lastClear)->diffForHumans() : 'Cache nunca foi limpo'
+			->icon(Heroicon::DocumentChartBar)
+			->description(__('widget-stats.card-2-description')),
+
+			Stat::make(
+				__('widget-stats.card-3'),
+				Auth::user()->posts->where('published', true)->count()
 			)
-			->descriptionIcon(Heroicon::Trash)
-			->color('warning'),
+			->icon(Heroicon::DocumentCheck)
+			->description(__('widget-stats.card-3-description')),
+
+			Stat::make(
+				__('widget-stats.card4'),
+				Auth::user()->posts->count()
+			)->icon(Heroicon::DocumentText)
+			->description(__('widget-stats.card-4-description')),
+
+			Stat::make(
+				__('widget-stats.card-5'),
+				$lastClear
+					? Carbon::parse($lastClear)->format('d/m/Y H:i')
+					: __('widget-stats.cache-never-clear')
+			)
+				->description(
+					$lastClear
+						? Carbon::parse($lastClear)->diffForHumans()
+						: __('widget-stats.cache')
+				)
+				->descriptionIcon('heroicon-o-trash')
+				->color('warning'),
 		];
 	}
 }

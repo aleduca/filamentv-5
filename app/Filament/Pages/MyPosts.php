@@ -9,21 +9,35 @@ use Filament\Facades\Filament;
 use Filament\Pages\Page;
 use Filament\Support\Colors\Color;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Auth;
+use Override;
 
 class MyPosts extends Page
 {
 	protected string $view = 'filament.pages.my-posts';
 
-	protected ?string $heading = 'My Posts';
+	// protected ?string $heading = 'My Posts';
 
-	protected ?string $subheading = 'Here I can see my posts details';
+	// protected ?string $subheading = 'Here I can see my posts details';
 
 	protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPencil;
 
 	protected static ?int $navigationSort = 3;
 
 	protected static ?string $navigationLabel = 'My Posts';
+
+	#[Override]
+	public function getHeading(): string|Htmlable|null
+	{
+		return __('my-posts.heading');
+	}
+
+	#[Override]
+	public function getSubheading(): string|Htmlable|null
+	{
+		return __('my-posts.subheading');
+	}
 
 	public $posts;
 
