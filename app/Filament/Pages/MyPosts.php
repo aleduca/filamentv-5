@@ -27,6 +27,12 @@ class MyPosts extends Page
 
 	protected static ?string $navigationLabel = 'My Posts';
 
+	public $posts;
+
+	public $totalPosts;
+
+	public $publishedPosts;
+
 	#[Override]
 	public function getHeading(): string|Htmlable|null
 	{
@@ -38,12 +44,6 @@ class MyPosts extends Page
 	{
 		return __('my-posts.subheading');
 	}
-
-	public $posts;
-
-	public $totalPosts;
-
-	public $publishedPosts;
 
 	public static function canAccess(): bool
 	{
