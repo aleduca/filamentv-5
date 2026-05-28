@@ -25,7 +25,7 @@ class MyPosts extends Page
 
 	protected static ?int $navigationSort = 3;
 
-	protected static ?string $navigationLabel = 'My Posts';
+	// protected static ?string $navigationLabel = 'My Posts';
 
 	public $posts;
 
@@ -43,6 +43,12 @@ class MyPosts extends Page
 	public function getSubheading(): string|Htmlable|null
 	{
 		return __('my-posts.subheading');
+	}
+
+	#[Override]
+	public static function getNavigationLabel(): string
+	{
+		return __('my-posts.navigation-label');
 	}
 
 	public static function canAccess(): bool

@@ -6,4 +6,5 @@ return [
 	'logged' => 'Usuario Conectado',
 	'heading' => 'Mis Publicaciones',
 	'subheading' => 'Aquí puedo ver los detalles de mis publicaciones',
+	'navigation-label' => 'Mis Publicaciones',
 ];

@@ -6,4 +6,5 @@ return [
 	'logged' => 'Usuário logado',
 	'heading' => 'Meus posts',
 	'subheading' => 'Aqui eu posso ver os detalhes do post',
+	'navigation-label' => 'Meus Posts',
 ];
