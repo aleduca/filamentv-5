@@ -48,7 +48,7 @@ class Stats extends StatsOverviewWidget
 			->description(__('widget-stats.card-3-description')),
 
 			Stat::make(
-				__('widget-stats.card4'),
+				__('widget-stats.card-4'),
 				Auth::user()->posts->count()
 			)->icon(Heroicon::DocumentText)
 			->description(__('widget-stats.card-4-description')),
