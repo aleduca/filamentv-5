@@ -47,6 +47,12 @@
 
     </div>
 
+    {{-- <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+            @livewire(\App\Filament\Widgets\PublishedPostsChart::class)
+        </div>
+    </div> --}}
+
     <x-filament::section heading="Últimos Posts" description="Últimos posts cadastrados por mim" icon="heroicon-o-document-text">
         <div class="space-y-4">
             @forelse($posts as $post)

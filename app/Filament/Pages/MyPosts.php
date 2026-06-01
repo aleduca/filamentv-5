@@ -2,10 +2,11 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Widgets\LatestUsers;
+use App\Filament\Widgets\Stats;
 use App\Models\Post;
 use BackedEnum;
 use Filament\Actions\Action;
-use Filament\Facades\Filament;
 use Filament\Pages\Page;
 use Filament\Support\Colors\Color;
 use Filament\Support\Icons\Heroicon;
@@ -74,11 +75,33 @@ class MyPosts extends Page
 		];
 	}
 
+	// #[Override]
+	// public function getHeaderWidgets(): array
+	// {
+	// 	return [
+	// 		Stats::class,
+	// 	];
+	// }
+
+	// #[Override]
+	// public function getFooterWidgets(): array
+	// {
+	// 	return [
+	// 		LatestUsers::class,
+	// 	];
+	// }
+
+	// #[Override]
+	// public function getFooterWidgetsColumns(): int|array
+	// {
+	// 	return 1;
+	// }
+
 	public function mount()
 	{
 		$user = Auth::user();
 
-		$posts = Post::where('user_id', $user->id)
+		$posts = Post::where('user_id', '=', $user->id, 'and')
 		->latest()
 		->get();
 
