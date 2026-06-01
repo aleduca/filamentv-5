@@ -39,6 +39,7 @@ class AdminPanelProvider extends PanelProvider
 			// ->topNavigation()
 			->profile(EditProfile::class, isSimple:false)
 			->sidebarWidth('15rem')
+			->globalSearchDebounce('750ms')
 			->sidebarCollapsibleOnDesktop()
 			->favicon(asset('images/favicon.ico'))
 			->brandLogo(asset('images/logo.png'))
