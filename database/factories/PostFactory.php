@@ -21,8 +21,6 @@ class PostFactory extends Factory
 		$title = fake()->sentence(6);
 
 		return [
-			'user_id' => User::factory(),
-			'category_id' => Category::factory(),
 			'title' => $title,
 			'slug' => str()->slug($title) . '-' . fake()->unique()->numberBetween(100, 999),
 			'content' => fake()->paragraphs(4, true),

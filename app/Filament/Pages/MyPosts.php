@@ -18,15 +18,9 @@ class MyPosts extends Page
 {
 	protected string $view = 'filament.pages.my-posts';
 
-	// protected ?string $heading = 'My Posts';
-
-	// protected ?string $subheading = 'Here I can see my posts details';
-
 	protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPencil;
 
-	protected static ?int $navigationSort = 3;
-
-	// protected static ?string $navigationLabel = 'My Posts';
+	protected static ?int $navigationSort = 4;
 
 	public $posts;
 
@@ -74,28 +68,6 @@ class MyPosts extends Page
 				}),
 		];
 	}
-
-	// #[Override]
-	// public function getHeaderWidgets(): array
-	// {
-	// 	return [
-	// 		Stats::class,
-	// 	];
-	// }
-
-	// #[Override]
-	// public function getFooterWidgets(): array
-	// {
-	// 	return [
-	// 		LatestUsers::class,
-	// 	];
-	// }
-
-	// #[Override]
-	// public function getFooterWidgetsColumns(): int|array
-	// {
-	// 	return 1;
-	// }
 
 	public function mount()
 	{

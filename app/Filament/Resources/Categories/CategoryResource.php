@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Filament\Resources\Users;
+namespace App\Filament\Resources\Categories;
 
-use App\Filament\Resources\Users\Pages\CreateUser;
-use App\Filament\Resources\Users\Pages\EditUser;
-use App\Filament\Resources\Users\Pages\ListUsers;
-use App\Filament\Resources\Users\Pages\ViewUser;
-use App\Filament\Resources\Users\Schemas\UserForm;
-use App\Filament\Resources\Users\Schemas\UserInfolist;
-use App\Filament\Resources\Users\Tables\UsersTable;
-use App\Models\User;
+use App\Filament\Resources\Categories\Pages\CreateCategory;
+use App\Filament\Resources\Categories\Pages\EditCategory;
+use App\Filament\Resources\Categories\Pages\ListCategories;
+use App\Filament\Resources\Categories\Pages\ViewCategory;
+use App\Filament\Resources\Categories\Schemas\CategoryForm;
+use App\Filament\Resources\Categories\Schemas\CategoryInfolist;
+use App\Filament\Resources\Categories\Tables\CategoriesTable;
+use App\Models\Category;
 use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Resources\Resource;
@@ -17,34 +17,33 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Override;
 
-class UserResource extends Resource
+class CategoryResource extends Resource
 {
-	protected static ?string $model = User::class;
+	protected static ?string $model = Category::class;
 
-	protected static string|BackedEnum|null $navigationIcon = Heroicon::Users;
+	protected static string|BackedEnum|null $navigationIcon = Heroicon::Cog8Tooth;
 
-	protected static ?string $recordTitleAttribute = 'Users List';
+	protected static ?string $recordTitleAttribute = 'Category';
 
-	protected static ?string $navigationLabel = 'Usuários';
+	protected static ?string $navigationLabel = 'Categorias';
 
-	protected static ?int $navigationSort = 1;
+	protected static ?int $navigationSort = 3;
 
 	protected static int $globalSearchResultsLimit = 5;
 
-	protected static ?int $globalSearchSort = 1;
+	protected static ?int $globalSearchSort = 3;
 
 	public static function getNavigationBadge(): ?string
 	{
-		return (string) User::count('users.id');
+		return (string) Category::count('categories.id');
 	}
 
 	public static function getNavigationBadgeColor(): ?string
 	{
-		return 'success';
+		return 'warning';
 	}
 
 	#[Override]
@@ -52,7 +51,6 @@ class UserResource extends Resource
 	{
 		return [
 			'name',
-			'email',
 		];
 	}
 
@@ -61,7 +59,6 @@ class UserResource extends Resource
 	{
 		return [
 			'name' => $record->name,
-			'email' => $record->email,
 		];
 	}
 
@@ -86,24 +83,17 @@ class UserResource extends Resource
 
 	public static function form(Schema $schema): Schema
 	{
-		// Schema -> organização, hierarquia e comunicação
-		// Usado em forms, actions, layouts e infolists
-		return UserForm::configure($schema); // CREATE/UPDATE
+		return CategoryForm::configure($schema);
 	}
 
 	public static function infolist(Schema $schema): Schema
 	{
-		return UserInfolist::configure($schema); // VIEW
+		return CategoryInfolist::configure($schema);
 	}
 
 	public static function table(Table $table): Table
 	{
-		return UsersTable::configure($table); // READ
-	}
-
-	public static function getEloquentQuery(): Builder
-	{
-		return parent::getEloquentQuery()->withCount('posts');
+		return CategoriesTable::configure($table);
 	}
 
 	public static function getRelations(): array
@@ -116,10 +106,10 @@ class UserResource extends Resource
 	public static function getPages(): array
 	{
 		return [
-			'index' => ListUsers::route('/'),
-			'create' => CreateUser::route('/create'),
-			'view' => ViewUser::route('/{record}'),
-			'edit' => EditUser::route('/{record}/edit'),
+			'index' => ListCategories::route('/'),
+			'create' => CreateCategory::route('/create'),
+			'view' => ViewCategory::route('/{record}'),
+			'edit' => EditCategory::route('/{record}/edit'),
 		];
 	}
 }

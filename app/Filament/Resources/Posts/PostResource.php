@@ -40,19 +40,30 @@ class PostResource extends Resource
 
 	protected static int $globalSearchResultsLimit = 5;
 
+	public static function getNavigationBadge(): ?string
+	{
+		return (string) Post::count('posts.id');
+	}
+
+	public static function getNavigationBadgeColor(): ?string
+	{
+		return 'danger';
+	}
+
 	#[Override]
 	public static function getGloballySearchableAttributes(): array
 	{
 		return [
 			'title',
 			'user.name',
+			'category.name',
 		];
 	}
 
 	#[Override]
 	public static function getGlobalSearchEloquentQuery(): Builder
 	{
-		return parent::getGlobalSearchEloquentQuery()->with('user');
+		return parent::getGlobalSearchEloquentQuery()->with(['user', 'category']);
 	}
 
 	// #[Override]
@@ -81,6 +92,7 @@ class PostResource extends Resource
 			'title' => $record->title,
 			'content' => Str::limit($record->content, 30),
 			'author' => $record->user->name,
+			'category' => $record->category->name,
 		];
 	}
 
