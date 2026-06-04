@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Users;
 
+use App\Filament\Clusters\Employees\EmployeesCluster;
 use App\Filament\Resources\Users\Pages\CreateUser;
 use App\Filament\Resources\Users\Pages\EditUser;
 use App\Filament\Resources\Users\Pages\ListUsers;
@@ -25,17 +26,25 @@ class UserResource extends Resource
 {
 	protected static ?string $model = User::class;
 
+	protected static ?string $cluster = EmployeesCluster::class;
+
 	protected static string|BackedEnum|null $navigationIcon = Heroicon::Users;
 
 	protected static ?string $recordTitleAttribute = 'Users List';
 
-	protected static ?string $navigationLabel = 'Usuários';
+	// protected static ?string $navigationLabel = 'Usuários';
 
 	protected static ?int $navigationSort = 1;
 
 	protected static int $globalSearchResultsLimit = 5;
 
 	protected static ?int $globalSearchSort = 1;
+
+	#[Override]
+	public static function getNavigationLabel(): string
+	{
+		return __('sidebar.users');
+	}
 
 	public static function getNavigationBadge(): ?string
 	{

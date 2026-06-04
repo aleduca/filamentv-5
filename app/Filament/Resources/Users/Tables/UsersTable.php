@@ -17,11 +17,11 @@ class UsersTable
 {
 	public static function configure(Table $table): Table
 	{
-		$totalPosts = Post::count();
+		$totalPosts = Post::count('posts.id');
 
 		return $table
 			->recordUrl(
-				fn ($record): string => route('filament.admin.resources.users.view', ['record' => $record]),
+				fn ($record): string => route('filament.admin.employees.resources.users.view', ['record' => $record]),
 			)
 			->columns(UsersTableColumns::make($totalPosts))->deferColumnManager(false)
 			->filters(UsersTableFilters::make(), layout: FiltersLayout::AboveContent)->deferFilters(false)

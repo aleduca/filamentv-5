@@ -4,7 +4,9 @@ namespace App\Filament\Resources\Users\Pages;
 
 use App\Filament\Resources\Users\Tables\Actions\CreateNewUserAction;
 use App\Filament\Resources\Users\UserResource;
+use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Contracts\Support\Htmlable;
 
 class ListUsers extends ListRecords
 {
@@ -13,7 +15,12 @@ class ListUsers extends ListRecords
 	protected function getHeaderActions(): array
 	{
 		return [
-			CreateNewUserAction::make(),
+			CreateAction::make(),
 		];
+	}
+
+	public function getTitle(): string | Htmlable
+	{
+		return __('sidebar.users');
 	}
 }

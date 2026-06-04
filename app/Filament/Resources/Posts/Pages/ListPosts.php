@@ -5,7 +5,7 @@ namespace App\Filament\Resources\Posts\Pages;
 use App\Filament\Resources\Posts\PostResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
-use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\Support\Htmlable;
 
 class ListPosts extends ListRecords
 {
@@ -14,12 +14,17 @@ class ListPosts extends ListRecords
 	protected function getHeaderActions(): array
 	{
 		return [
-			CreateAction::make()->label('Create new Post')->url(fn () => route('filament.admin.resources.posts.create')),
+			CreateAction::make(),
 		];
 	}
 
-	public function getHeader(): ?View
+	public function getTitle(): string | Htmlable
 	{
-		return view('filament.posts.list.header');
+		return __('sidebar.posts');
 	}
+
+	// public function getHeader(): ?View
+	// {
+	// 	return view('filament.posts.list.header');
+	// }
 }

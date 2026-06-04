@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Clusters\Blog\BlogCluster;
 use App\Filament\Widgets\LatestUsers;
 use App\Filament\Widgets\Stats;
 use App\Models\Post;
@@ -17,6 +18,8 @@ use Override;
 class MyPosts extends Page
 {
 	protected string $view = 'filament.pages.my-posts';
+
+	protected static ?string $cluster = BlogCluster::class;
 
 	protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPencil;
 
@@ -43,7 +46,7 @@ class MyPosts extends Page
 	#[Override]
 	public static function getNavigationLabel(): string
 	{
-		return __('my-posts.navigation-label');
+		return __('sidebar.my-posts');
 	}
 
 	public static function canAccess(): bool

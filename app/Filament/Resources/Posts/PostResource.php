@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Posts;
 
+use App\Filament\Clusters\Blog\BlogCluster;
 use App\Filament\Resources\Posts\Pages\CreatePost;
 use App\Filament\Resources\Posts\Pages\EditPost;
 use App\Filament\Resources\Posts\Pages\ListPosts;
@@ -12,6 +13,7 @@ use App\Filament\Resources\Posts\Tables\PostsTable;
 use App\Models\Post;
 use BackedEnum;
 use Filament\Actions\Action;
+use Filament\Pages\Enums\SubNavigationPosition;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -26,11 +28,13 @@ class PostResource extends Resource
 {
 	protected static ?string $model = Post::class;
 
+	protected static ?string $cluster = BlogCluster::class;
+
 	protected static string|BackedEnum|null $navigationIcon = Heroicon::PencilSquare;
 
 	protected static ?string $recordTitleAttribute = 'Post';
 
-	protected static ?string $navigationLabel = 'Posts';
+	// protected static ?string $navigationLabel = 'Posts';
 
 	protected static ?int $navigationSort = 2;
 
@@ -39,6 +43,12 @@ class PostResource extends Resource
 	// protected static bool $isGloballySearchable = false;
 
 	protected static int $globalSearchResultsLimit = 5;
+
+	#[Override]
+	public static function getNavigationLabel(): string
+	{
+		return __('sidebar.posts');
+	}
 
 	public static function getNavigationBadge(): ?string
 	{

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Categories;
 
+use App\Filament\Clusters\Blog\BlogCluster;
 use App\Filament\Resources\Categories\Pages\CreateCategory;
 use App\Filament\Resources\Categories\Pages\EditCategory;
 use App\Filament\Resources\Categories\Pages\ListCategories;
@@ -12,6 +13,7 @@ use App\Filament\Resources\Categories\Tables\CategoriesTable;
 use App\Models\Category;
 use BackedEnum;
 use Filament\Actions\Action;
+use Filament\Pages\Enums\SubNavigationPosition;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -24,17 +26,25 @@ class CategoryResource extends Resource
 {
 	protected static ?string $model = Category::class;
 
+	protected static ?string $cluster = BlogCluster::class;
+
 	protected static string|BackedEnum|null $navigationIcon = Heroicon::Cog8Tooth;
 
 	protected static ?string $recordTitleAttribute = 'Category';
 
-	protected static ?string $navigationLabel = 'Categorias';
+	// protected static ?string $navigationLabel = 'Categorias';
 
 	protected static ?int $navigationSort = 3;
 
 	protected static int $globalSearchResultsLimit = 5;
 
 	protected static ?int $globalSearchSort = 3;
+
+	#[Override]
+	public static function getNavigationLabel(): string
+	{
+		return __('sidebar.categories');
+	}
 
 	public static function getNavigationBadge(): ?string
 	{
